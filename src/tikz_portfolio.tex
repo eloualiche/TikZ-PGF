@@ -1,0 +1,33 @@
+\begin{axis}[
+    height=7cm, width=12cm,
+    axis x line=bottom, axis y line=left,
+    xlabel = Standard Deviation, ylabel = Expected Return,
+    ymin=0, ymax=25,
+    xmin=0, xmax=60,
+    extra x ticks={65}, extra x tick labels={$\sigma$},
+    extra x tick style={major tick length=0mm, grid=none},
+    extra y ticks={25}, extra y tick labels={$\mathbf{E}\{R\}$},
+    extra y tick style={major tick length=0mm, grid=none},
+    enlargelimits=true,
+    scatter/classes={
+      a={mark=o,draw=black, mark size = 3pt},
+      b={mark=*, mark size = 3pt,draw=red, fill = red}
+    }
+]
+    \addplot[color=black, domain=0:55, line width=1pt]
+      {3 + x * 0.4}; % plot the capital allocation line
+    \addplot[color=red, domain=0:55, line width=1pt]
+      {5 + 0.5 * (1/23) * x^2}; % plot the utility function
+    \addplot[scatter,only marks,
+      scatter src=explicit symbolic]  % plot the risk-free rate and the market and the allocation
+      coordinates {
+          (0,3)        [a]
+          (20, 11)     [a]
+          (10, 7)      [b]
+        };
+    \node at (axis cs:0,3) [anchor=north west] {Riskfree, $R_f$};
+    \node at (axis cs:20,11) [anchor=north west] {Risky, $R_s$};
+    \node[rotate=27] at (axis cs:50, 23) [anchor=south east] {\textbf{CAL}};
+    \node[color=red] at (axis cs:27, 25) [anchor=south west] {\textbf{U}};
+    \node[pin={[pin edge={thick}, pin distance=2cm]90:{Optimal Porfolio}}] at (axis cs:10,7.5) {};
+\end{axis}

@@ -1,0 +1,28 @@
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Standard Deviation, ylabel = Expected Return,
+  ymin=0, ymax=25, xmin=0, xmax=60,
+  extra x ticks={65}, extra x tick labels={$\sigma$},
+  extra x tick style={major tick length=0mm, grid=none},
+  extra y ticks={25}, extra y tick labels={$\mathbf{E}\{R\}$},
+  extra y tick style={major tick length=0mm,  grid=none},
+  enlargelimits=true,
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red}
+    }
+]
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (20, 11)     [a]
+     (12, 5)      [a]
+  };
+\node at (axis cs:12, 5) [anchor=north east] {Asset 1};
+\node at (axis cs:20,11) [anchor=north west] {Asset 2};
+\addplot[red, very thick,  domain=-1:2.5, samples=200, variable=\t](
+  {(20^2*t^2 + 12^2*(1-t)^2)^(0.5) }, %{(t^2 * 20^2 + (1-t)^2 * 12)},
+  {11 * t + (1-t) * 5} );
+\node[rotate=18, color=red] at (axis cs:50, 20) [anchor=south east] {\textbf{Efficient Frontier}};
+\end{axis}

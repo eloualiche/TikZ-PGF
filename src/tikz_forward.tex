@@ -1,0 +1,33 @@
+% \begin{tikzpicture}
+    \begin{axis}[
+    height=10cm,
+    width=14cm,
+    axis x line=bottom,
+    axis y line=left,
+    xlabel = Spot Price $S_T$,
+    ylabel = Payoff,
+    ymin=-32, ymax=32,
+    xmin=70, xmax=132,    
+    xtick={80, 100, 120, 130},
+    ytick={-20, 0, 20, 30},
+    grid = major,
+    grid style={dashed},
+    scatter/classes={
+      a={mark=*, mark size = 3pt,draw=black, fill = black}      
+    }
+]
+  \definecolor{maroon}{RGB}{128, 0, 0}
+  \addplot[color=black, domain=70:130, line width=1pt]
+    {x - 100};
+  \addplot[color=maroon, dashed, domain=70:130, line width=1pt]
+    {100 - x};
+  \node[pin={[pin edge={thick}, text width=3cm, pin distance=2cm]-90:{{\centering Forward Price $F_{0,T}$}}}, align=center] at (axis cs:100, -1) {};
+  \addplot[scatter,only marks,
+    scatter src=explicit symbolic]
+    coordinates {
+      (100,0)        [a]
+    };        
+  \node[text width=3cm,align=right] at (axis cs:120, 20) [anchor=south east] {\textbf{Long Forward}\\$S_T - F_{0,T}$};
+  \node[text width=3cm,align=left] at (axis cs:80, 20) [anchor=south west] {\textbf{Short Forward}\\$F_{0,T} - S_T$};
+\end{axis}
+% \end{tikzpicture}

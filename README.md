@@ -1,12 +1,15 @@
 # TikZ-PGF
 
-Project [Website](https://eloualiche.github.io/TikZ-PGF/)
-
 ![](./output/bubbles.png)
 
-All source files and required preamble for compilation are in `./src/` folder
+--------------------------------
+
+Project [Website](https://eloualiche.github.io/TikZ-PGF/)
+
+This was inspired by Chiu Yu Ko's great [TikZ website](https://sites.google.com/site/kochiuyu/Tikz)
 
 
+--------------------------------
 
 ### Dependency Graph
 

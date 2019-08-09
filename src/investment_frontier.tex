@@ -1,0 +1,25 @@
+\documentclass{standalone}
+
+% --------------------------------------------------------
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% --------------------------------------------------------
+\usetikzlibrary{shapes, arrows, positioning, matrix}
+\usetikzlibrary{arrows.meta, calc, fit, tikzmark}
+\usetikzlibrary{patterns, chains, scopes}
+\usepgflibrary{shapes.multipart, decorations.pathreplacing}
+
+\pgfplotsset{compat=1.8}
+
+% --------------------------------------------------------
+\begin{document}
+
+\begin{tikzpicture}
+	\input{./src/tikz_frontier}
+	% \input{./tikz_frontier}
+\end{tikzpicture}
+
+
+\end{document}
+% --------------------------------------------------------
