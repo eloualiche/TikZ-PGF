@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tikz and Investment</title>
+    <!-- <link rel="stylesheet" href="../css/tufte.css"/> -->
+    <link rel="stylesheet" href="../css/tuftesque.css"/>
+    <link rel="stylesheet" href="../css/latex.css"/>
+    <link rel="stylesheet" href="../css/github-gist-lucy.css" rel="stylesheet" id="theme-stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123382366-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-123382366-1');
+    </script>
+  </head>
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<style>
+  body { background-color: #fffff8; }
+</style>
+
+
+  <body>
+    <article>
+      <h1 id="tufte-css">Using TikZ and PGFPlots for an Investments Class</h1>
+      <!-- <p class="subtitle">Erik Loualiche</p> -->
+
+      <section>
+        <h2 id="investment">Investments: Portfolio Choice</h2>
+        <p>To use the code just insert it into any LaTeX code with the appropriate tikz libraries</p>
+
+        <p>List of figures:
+           <ol>
+            <li><a href="#portfolio">Optimal Portfolio</a></li>
+            <li><a href="#frontier">Efficient Frontier</a></li>
+            <li><a href="#sml">Security Market Line</a></li>
+            <li><a href="./investments.html#cmlsml">Putting it all together</a></li>
+           </ol>
+         </p>
+      </section>
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="portfolio">Optimal Portfolio</h3>
+        <p>Optimal portfolio allocation lies on the Capital Allocation Line (CAL) such that it maximizes the utility of the investor. Thus investor's utility curve is tangent on that point to the CAL:</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Mean Variance Optimization for Portfolio Allocation</span>
+          <img src="../tikz-img/opt_portfolio.svg" alt="Optimal Portfolio with a Capital Allocation Line" />
+        </figure>
+
+<pre class="latex"><code>
+\begin{axis}[
+    height=7cm, width=12cm,
+    axis x line=bottom, axis y line=left,
+    xlabel = Standard Deviation, ylabel = Expected Return,
+    ymin=0, ymax=25,
+    xmin=0, xmax=60,
+    extra x ticks={65}, extra x tick labels={$\sigma$},
+    extra x tick style={major tick length=0mm, grid=none},
+    extra y ticks={25}, extra y tick labels={$\mathbf{E}\{R\}$},
+    extra y tick style={major tick length=0mm, grid=none},
+    enlargelimits=true,
+    scatter/classes={
+      a={mark=o,draw=black, mark size = 3pt},
+      b={mark=*, mark size = 3pt,draw=red, fill = red}
+    }
+]
+    \addplot[color=black, domain=0:55, line width=1pt]
+      {3 + x * 0.4}; % plot the capital allocation line
+    \addplot[color=red, domain=0:55, line width=1pt]
+      {5 + 0.5 * (1/23) * x^2}; % plot the utility function
+    \addplot[scatter,only marks,
+      scatter src=explicit symbolic]  % plot the risk-free rate and the market and the allocation
+      coordinates {
+          (0,3)        [a]
+          (20, 11)     [a]
+          (10, 7)      [b]
+        };
+    \node at (axis cs:0,3) [anchor=north west] {Riskfree, $R_f$};
+    \node at (axis cs:20,11) [anchor=north west] {Risky, $R_s$};
+    \node[rotate=27] at (axis cs:50, 23) [anchor=south east] {\textbf{CAL}};
+    \node[color=red] at (axis cs:27, 25) [anchor=south west] {\textbf{U}};
+    \node[pin={[pin edge={thick}, pin distance=2cm]90:{Optimal Porfolio}}] at (axis cs:10,7.5) {};
+\end{axis}
+</code></pre>
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+<p>
+      <section>
+        <h3 id="frontier">Efficient Frontier</h3>
+        <p>Case of two or more than two assets</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Efficient Frontier: two assets</span>
+          <img src="../tikz-img/efficient_frontier1.svg" alt="Optimal Portfolio with a Capital Allocation Line" />
+        </figure>
+<pre class="latex"><code>
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Standard Deviation, ylabel = Expected Return,
+  ymin=0, ymax=25, xmin=0, xmax=60,
+  extra x ticks={65}, extra x tick labels={$\sigma$},
+  extra x tick style={major tick length=0mm, grid=none},
+  extra y ticks={25}, extra y tick labels={$\mathbf{E}\{R\}$},
+  extra y tick style={major tick length=0mm,  grid=none},
+  enlargelimits=true,
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red}
+    }
+]
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (20, 11)     [a]
+     (12, 5)      [a]
+  };
+\node at (axis cs:12, 5) [anchor=north east] {Asset 1};
+\node at (axis cs:20,11) [anchor=north west] {Asset 2};
+\addplot[red, very thick,  domain=-1:2.5, samples=200, variable=\t](
+  {(20^2*t^2 + 12^2*(1-t)^2)^(0.5) }, %{(t^2 * 20^2 + (1-t)^2 * 12)},
+  {11 * t + (1-t) * 5} );
+\node[rotate=18, color=red] at (axis cs:50, 20) [anchor=south east] {\textbf{Efficient Frontier}};
+\end{axis}
+</code></pre>
+
+</p>
+
+
+<p>
+ <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Efficient Frontier: more than two assets</span>
+          <img src="../tikz-img/efficient_frontier2.svg" alt="Optimal Portfolio with a Capital Allocation Line" />
+        </figure>
+
+<pre class="latex"><code>
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Standard Deviation, ylabel = Expected Return,
+  ymin=0, ymax=25, xmin=0, xmax=60,
+  extra x ticks={65}, extra x tick labels={$\sigma$},
+  extra x tick style={major tick length=0mm, grid=none},
+  extra y ticks={25}, extra y tick labels={$\mathbf{E}\{R\}$},
+  extra y tick style={major tick length=0mm, grid=none},
+  enlargelimits=true,
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red},
+    c={mark=*, mark size = 3pt,draw=black, fill = black}
+  }
+]
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (30, 11)     [c]
+    (19, 5)      [c]
+    (40, 15)     [c]
+    (16, 10)     [b]
+  };
+\node at (axis cs:19, 5) [anchor=north west] {MSFT};
+\node at (axis cs:30,11) [anchor=north west] {AAPL};
+\node at (axis cs:40,15) [anchor=north west] {KO};
+\addplot[red, very thick,  domain=-1:2.5, samples=200, variable=\t](
+   {(20^2*t^2 + 12^2*(1-t)^2)^(0.5) }, %{(t^2 * 20^2 + (1-t)^2 * 12)},
+   {11 * t + (1-t) * 5}
+ );
+\node[color=red] at (axis cs:30, 0) [anchor=south west] {\textbf{Efficient Frontier}};
+\addplot[black, very thick, domain=-10:50, samples=100, variable=\x](
+  ({x}, {4 + 0.37 * x});
+\node[rotate = 25, color=black] at (axis cs:30, 15) [anchor=south west] {\textbf{Optimal CAL}};
+\node[pin={[pin edge={thick}, text width=3cm, pin distance=2cm]90:{{\centering Mean Variance Efficient Porfolio}}}] at (axis cs:16, 10.5) {};
+\end{axis}
+</code></pre>
+
+</p>
+</section>
+
+<section>
+        <h3 id="sml">Security Market Line</h3>
+
+<p>
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Security Market Line</span>
+          <img src="../tikz-img/sml.svg" alt="" />
+        </figure>
+
+<pre class="latex"><code>
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Market Risk, ylabel = Expected Return,
+  ymin=0, ymax=24, xmin=0, xmax=2.5,
+  xtick={0, 0.5, 1, 1.5, 2}, extra x ticks={2.5},
+  extra x tick labels={$\beta$},
+  extra x tick style={
+    major tick length=0mm,
+    grid=none
+  },
+  ytick={3, 7, 11, 15}, yticklabels={$R_f$, $R_1$, $R_M$, $R_2$},
+  extra y ticks={23},  extra y tick labels={$\mathbf{E}\{R\}$},
+  extra y tick style={
+    major tick length=0mm,
+    grid=none
+  },
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red},
+    c={mark=*, mark size = 3pt,draw=black, fill = black}
+  }
+]
+
+\addplot[color=black, domain=-10:3, line width=1pt]
+  {3 + x * 8};
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (0,3)        [a]
+    (1, 11)      [b]
+    (0.5, 7)     [c]
+    (1.5, 15)    [c]
+  };
+
+\draw[dashed] (axis cs:0.5,0) -- (axis cs:0.5,7);
+\draw[dashed] (axis cs:1.5,0) -- (axis cs:1.5,15);
+\draw[dashed, color=red] (axis cs:1,0) -- (axis cs:1,11);
+\draw[dotted] (axis cs:0,7) -- (axis cs:0.5,7);
+\draw[dotted] (axis cs:0,15) -- (axis cs:1.5,15);
+\draw[dotted, color=red] (axis cs:0,11) -- (axis cs:1,11);
+\node[rotate=23] at (axis cs:2.4, 23) [anchor=south east] {\textbf{Security Market Line}};
+\node[pin={[pin edge={thick}, pin distance=2cm]90:{Market Porfolio}}] at (axis cs:1,11.5) {};
+\end{axis}
+</code></pre>
+
+</p>
+</section>
+
+
+<section>
+        <h3 id="cmlsml">Capital Market Line and Security Market Line</h2>
+        <p>The capital market line and security market line represent assets on a risk and return map. For the capital allocation line risk is measured by total standard deviation whereas for the security market line it is measured by the systematic risk part, the beta of a stock with the market portfolio:</p>
+
+
+       <figure class="fullwidth">
+          <img src="../tikz-img/sml_cal.svg" alt="Security Market Line and Capital Allocation Line" />
+        </figure>
+  </figure>
+
+<pre class="latex"><code>
+  \begin{tikzpicture}
+    \begin{groupplot}[
+      group style={group size=2 by 1, horizontal sep=2cm}, no markers,
+      height=7cm, width=10cm,
+      axis x line=bottom, axis y line=left,
+      ymin=0, ymax=24,
+      extra y ticks={23},  extra y tick labels={$\mathbf{E}\{R\}$},
+    extra y tick style={major tick length=0mm, grid=none},
+    scatter/classes={
+      a={mark=o,draw=black, mark size = 3pt},
+      b={mark=*, mark size = 3pt,draw=red, fill = red},
+      c={mark=*, mark size = 3pt,draw=black, fill = black}
+    }
+]
+% PLOT 1
+\nextgroupplot[
+    xlabel = Standard Deviation,
+    ylabel = Expected Return,
+    xmin=0, xmax=55,
+    extra x ticks={55}, extra x tick labels={$\sigma$},
+    extra x tick style={major tick length=0mm, grid=none},
+    xtick={0, 16, 30, 40 },
+    xticklabels={0, $\sigma_M$, $\sigma_{\text{AAPL}}$, $\sigma_{\text{KO}}$ },
+    ytick={3, 5, 10, 15},
+    yticklabels={$R_f$, $R_{\text{MSFT}}$, $R_M$, $R_{\text{KO}}$}
+]
+    \addplot[scatter,only marks, scatter src=explicit symbolic]
+        coordinates {
+          (30, 11)     [c]
+          (19, 5)      [c]
+          (40, 15)     [c]
+          (16, 10)     [b]
+        };
+    \node at (axis cs:19, 5) [anchor=north west] {MSFT};
+    \node at (axis cs:30,11) [anchor=south west] {AAPL};
+    \node at (axis cs:40,15) [anchor=north west] {KO};
+    \addplot[red, very thick,  domain=-0.5:2.5, samples=200, variable=\t](
+      {(18^2*t^2 + 16^2*(1-t)^2)^(0.5) }, %{(t^2 * 20^2 + (1-t)^2 * 12)},
+      {11 * t + (1-t) * 4}
+    );
+    \addplot[black, very thick, domain=-10:50, samples=100, variable=\x](({x}, {3 + 7/16 * x});
+    \node[rotate = 35, color=black] at (axis cs:30, 16) [anchor=south west]{\textbf{Optimal CAL}};
+    \node[pin={[pin edge={thick}, text width=3cm, pin distance=2cm]90:{{\centering Mean Variance Efficient Porfolio}}}] at (axis cs:16, 10.5) {};
+    \draw[dotted, color=red] (axis cs:0, 10) -- (axis cs: 16,10);
+    \draw[dashed, thick, color=red] (axis cs:16, 10) -- (axis cs: 55,10);
+    \node[] (market1) at (axis cs:55.,10) {};
+    \draw[dotted] (axis cs:0, 15) -- (axis cs: 40, 15);
+    \draw[dashed] (axis cs:40, 15) -- (axis cs: 55,15);
+    \node[] (ko1) at (axis cs:55.,15) {};
+    \draw[dotted] (axis cs:0, 5) -- (axis cs: 19, 5);
+    \draw[dashed] (axis cs:19, 5) -- (axis cs: 55,5);
+    \node[] (ms1) at (axis cs:55, 5) {};
+  % PLOT 2
+  \nextgroupplot[
+    xlabel = Market Risk,
+    xmin=0, xmax=2,
+    xtick={0, 1, 0.2857142857142857, 1.7142857142857142},
+    xticklabels={0 , $\beta^M$, $\beta^{\text{MSFT}}$, $\beta^{\text{KO}}$},
+    ytick=\empty
+  ]
+    \addplot[color=black, domain=-10:3, line width=1pt]{3 + x * 7};
+    \addplot[scatter,only marks, scatter src=explicit symbolic]
+        coordinates {
+          (0,3)        [a]
+          (1, 10)      [b]
+          (2/7, 5)     [c]
+          (12/7, 15)   [c]
+        };
+    \draw[dotted, color=red] (axis cs:1,0) -- (axis cs:1,10);
+    \draw[dashed, color=red] (axis cs:0,10) -- (axis cs:1,10);
+    \draw[dotted] (axis cs:12/7,0) -- (axis cs:12/7, 15);
+    \draw[dashed] (axis cs:0,15) -- (axis cs:12/7,15);
+    \draw[dotted] (axis cs:2/7,0) -- (axis cs:2/7, 5);
+    \draw[dashed] (axis cs:0,5) -- (axis cs:2/7,5);
+    \node[] (market2) at (axis cs:0.,10) {};
+    \node[] (ko2) at (axis cs:0,15) {};
+    \node[] (ms2) at (axis cs:0, 5) {};
+    \node[rotate=23] at (axis cs:2.4, 23) [anchor=south east] {\textbf{SML}};
+    \node[pin={[pin edge={thick}, pin distance=2cm]90:{Market Porfolio}}] at (axis cs:1,11.5) {};
+  \end{groupplot}
+  \draw[dashed, thick, red] (market1) -- (market2) ;
+  \draw[dashed] (ko1) -- (ko2) ;
+  \draw[dashed] (ms1) -- (ms2) ;
+\end{tikzpicture}
+</code></pre>
+
+</section>
+
+
+
+      <section>
+        <h2 id="epilogue">Links:</h2>
+        <ul>
+        <li>Main TikZ <a href="../tikz-index.html">page</a>.</li>
+        <li>Back to my academic <a href="../../index.html">page</a>.</li>
+
+      </section>
+    </article>
+  </body>
+</html>

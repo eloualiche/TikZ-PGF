@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tikz and Options</title>
+    <!-- <link rel="stylesheet" href="../css/tufte.css"/> -->
+    <link rel="stylesheet" href="../css/tuftesque.css"/>
+    <link rel="stylesheet" href="../css/latex.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/github-gist-lucy.css" rel="stylesheet" id="theme-stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123382366-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-123382366-1');
+    </script>
+  </head>
+
+<!-- SYNTAX HIGHLIGHTING -->
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<style>
+  body { background-color: #fffff8; }
+</style>
+
+
+  <body>
+    <article>
+      <h1 id="tufte-css">Using TikZ and PGFPlots for a class on Options and Derivatives</h1>
+
+      <section>
+        <h2 id="options">Options and Derivatives</h2>
+        <p>To use the code just insert it into any LaTeX code with the appropriate tikz libraries</p>
+
+        <p>List of figures:
+           <ol>
+            <li><a href="#forward">Payoff of a Forward Contract</a></li>
+           </ol>
+         </p>
+      </section>
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="forward">Payoff of a Forward Contract</h3>
+        <p>Payoff of a forward contract is linear in the underlying security:</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="forward" class="margin-toggle"/><span class="marginnote">Forward Contract Payoff</span>
+          <img src="../tikz-img/forward.svg" alt="Forward Contract Payoff" />
+        </figure>
+
+<pre class="latex"><code>
+\begin{tikzpicture}
+    \begin{axis}[
+    height=10cm,
+    width=14cm,
+    axis x line=bottom,
+    axis y line=left,
+    xlabel = Spot Price $S_T$,
+    ylabel = Payoff,
+    ymin=-32, ymax=32,
+    xmin=70, xmax=132,    
+    xtick={80, 100, 120, 130},
+    ytick={-20, 0, 20, 30},
+    grid = major,
+    grid style={dashed},
+    scatter/classes={
+      a={mark=*, mark size = 3pt,draw=black, fill = black}      
+    }
+]
+  \definecolor{maroon}{RGB}{128, 0, 0}
+  \addplot[color=black, domain=70:130, line width=1pt]
+    {x - 100};
+  \addplot[color=maroon, dashed, domain=70:130, line width=1pt]
+    {100 - x};
+  \node[pin={[pin edge={thick}, text width=3cm, pin distance=2cm]-90:{{\centering Forward Price $F_{0,T}$}}}, align=center] at (axis cs:100, -1) {};
+  \addplot[scatter,only marks,
+    scatter src=explicit symbolic]
+    coordinates {
+      (100,0)        [a]
+    };        
+  \node[text width=3cm,align=right] at (axis cs:120, 20) [anchor=south east] {\textbf{Long Forward}\\$S_T - F_{0,T}$};
+  \node[text width=3cm,align=left] at (axis cs:80, 20) [anchor=south west] {\textbf{Short Forward}\\$F_{0,T} - S_T$};
+\end{axis}
+\end{tikzpicture}
+</code></pre>
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+     <section>
+        <h2 id="epilogue">Links:</h2>
+        <ul>
+        <li>Main TikZ <a href="../tikz-index.html">page</a>.</li>
+        <li>Back to my academic <a href="../../index.html">page</a>.</li>
+
+      </section>
+    </article>
+  </body>
+</html>
