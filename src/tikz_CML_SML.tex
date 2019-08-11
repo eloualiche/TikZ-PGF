@@ -1,0 +1,84 @@
+  \begin{tikzpicture}
+    \begin{groupplot}[
+      group style={group size=2 by 1, horizontal sep=2cm}, no markers,
+      height=7cm, width=10cm,
+      axis x line=bottom, axis y line=left,
+      ymin=0, ymax=24,
+      extra y ticks={23},  extra y tick labels={$\mathbf{E}\{R\}$},
+    extra y tick style={major tick length=0mm, grid=none},
+    scatter/classes={
+      a={mark=o,draw=black, mark size = 3pt},
+      b={mark=*, mark size = 3pt,draw=red, fill = red},
+      c={mark=*, mark size = 3pt,draw=black, fill = black}
+    }
+]
+% PLOT 1
+\nextgroupplot[
+    xlabel = Standard Deviation,
+    ylabel = Expected Return,
+    xmin=0, xmax=55,
+    extra x ticks={55}, extra x tick labels={$\sigma$},
+    extra x tick style={major tick length=0mm, grid=none},
+    xtick={0, 16, 30, 40 },
+    xticklabels={0, $\sigma_M$, $\sigma_{\text{AAPL}}$, $\sigma_{\text{KO}}$ },
+    ytick={3, 5, 10, 15},
+    yticklabels={$R_f$, $R_{\text{MSFT}}$, $R_M$, $R_{\text{KO}}$}
+]
+    \addplot[scatter,only marks, scatter src=explicit symbolic]
+        coordinates {
+          (30, 11)     [c]
+          (19, 5)      [c]
+          (40, 15)     [c]
+          (16, 10)     [b]
+        };
+    \node at (axis cs:19, 5) [anchor=north west] {MSFT};
+    \node at (axis cs:30,11) [anchor=south west] {AAPL};
+    \node at (axis cs:40,15) [anchor=north west] {KO};
+    \addplot[red, very thick,  domain=-0.5:2.5, samples=200, variable=\t](
+      {(18^2*t^2 + 16^2*(1-t)^2)^(0.5) }, %{(t^2 * 20^2 + (1-t)^2 * 12)},
+      {11 * t + (1-t) * 4}
+    );
+    \addplot[black, very thick, domain=-10:50, samples=100, variable=\x]({x}, {3 + 7/16 * x});
+    \node[rotate = 35, color=black] at (axis cs:30, 16) [anchor=south west]{\textbf{Optimal CAL}};
+    \node[pin={[pin edge={thick}, text width=3cm, pin distance=2cm]90:{{\centering Mean Variance Efficient Porfolio}}}] at (axis cs:16, 10.5) {};
+    \draw[dotted, color=red] (axis cs:0, 10) -- (axis cs: 16,10);
+    \draw[dashed, thick, color=red] (axis cs:16, 10) -- (axis cs: 55,10);
+    \node[] (market1) at (axis cs:55.,10) {};
+    \draw[dotted] (axis cs:0, 15) -- (axis cs: 40, 15);
+    \draw[dashed] (axis cs:40, 15) -- (axis cs: 55,15);
+    \node[] (ko1) at (axis cs:55.,15) {};
+    \draw[dotted] (axis cs:0, 5) -- (axis cs: 19, 5);
+    \draw[dashed] (axis cs:19, 5) -- (axis cs: 55,5);
+    \node[] (ms1) at (axis cs:55, 5) {};
+  % PLOT 2
+  \nextgroupplot[
+    xlabel = Market Risk,
+    xmin=0, xmax=2,
+    xtick={0, 1, 0.2857142857142857, 1.7142857142857142},
+    xticklabels={0 , $\beta^M$, $\beta^{\text{MSFT}}$, $\beta^{\text{KO}}$},
+    % ytick=\empty
+    ]
+    \addplot[color=black, domain=-10:3, line width=1pt]{3 + x * 7};
+    \addplot[scatter,only marks, scatter src=explicit symbolic]
+        coordinates {
+          (0,3)        [a]
+          (1, 10)      [b]
+          (2/7, 5)     [c]
+          (12/7, 15)   [c]
+        };
+    \draw[dotted, color=red] (axis cs:1,0) -- (axis cs:1,10);
+    \draw[dashed, color=red] (axis cs:0,10) -- (axis cs:1,10);
+    \draw[dotted] (axis cs:12/7,0) -- (axis cs:12/7, 15);
+    \draw[dashed] (axis cs:0,15) -- (axis cs:12/7,15);
+    \draw[dotted] (axis cs:2/7,0) -- (axis cs:2/7, 5);
+    \draw[dashed] (axis cs:0,5) -- (axis cs:2/7,5);
+    \node[] (market2) at (axis cs:0.,10) {};
+    \node[] (ko2) at (axis cs:0,15) {};
+    \node[] (ms2) at (axis cs:0, 5) {};
+    \node[rotate=23] at (axis cs:2.4, 23) [anchor=south east] {\textbf{SML}};
+    \node[pin={[pin edge={thick}, pin distance=2cm]90:{Market Porfolio}}] at (axis cs:1,11.5) {};
+  \end{groupplot}
+  \draw[dashed, thick, red] (market1) -- (market2) ;
+  \draw[dashed] (ko1) -- (ko2) ;
+  \draw[dashed] (ms1) -- (ms2) ;
+\end{tikzpicture}

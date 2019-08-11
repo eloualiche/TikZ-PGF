@@ -1,0 +1,44 @@
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Market Risk, ylabel = Expected Return,
+  ymin=0, ymax=24, xmin=0, xmax=2.5,
+  xtick={0, 0.5, 1, 1.5, 2}, extra x ticks={2.5},
+  extra x tick labels={$\beta$},
+  extra x tick style={
+    major tick length=0mm,
+    grid=none
+  },
+  ytick={3, 7, 11, 15}, yticklabels={$R_f$, $R_1$, $R_M$, $R_2$},
+  extra y ticks={23},  extra y tick labels={$\mathbf{E}\{R\}$},
+  extra y tick style={
+    major tick length=0mm,
+    grid=none
+  },
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red},
+    c={mark=*, mark size = 3pt,draw=black, fill = black}
+  }
+]
+
+\addplot[color=black, domain=-10:3, line width=1pt]
+  {3 + x * 8};
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (0,3)        [a]
+    (1, 11)      [b]
+    (0.5, 7)     [c]
+    (1.5, 15)    [c]
+  };
+
+\draw[dashed] (axis cs:0.5,0) -- (axis cs:0.5,7);
+\draw[dashed] (axis cs:1.5,0) -- (axis cs:1.5,15);
+\draw[dashed, color=red] (axis cs:1,0) -- (axis cs:1,11);
+\draw[dotted] (axis cs:0,7) -- (axis cs:0.5,7);
+\draw[dotted] (axis cs:0,15) -- (axis cs:1.5,15);
+\draw[dotted, color=red] (axis cs:0,11) -- (axis cs:1,11);
+\node[rotate=23] at (axis cs:2.4, 23) [anchor=south east] {\textbf{Security Market Line}};
+\node[pin={[pin edge={thick}, pin distance=2cm]90:{Market Porfolio}}] at (axis cs:1,11.5) {};
+\end{axis}

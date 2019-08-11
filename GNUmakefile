@@ -25,7 +25,10 @@ options.source = \
 
 investments.source = \
 	./src/investment_portfolio.tex ./src/tikz_portfolio.tex \
-	./src/investment_frontier.tex  ./src/tikz_frontier.tex
+	./src/investment_frontier.tex  ./src/tikz_frontier.tex  \
+	./src/investment_MVEP.tex      ./src/tikz_MVEP.tex  \
+	./src/investment_SML.tex       ./src/tikz_SML.tex  \
+	./src/investment_CML_SML.tex   ./src/tikz_CML_SML.tex  \
 
 # --------------------------------------------------------------------------------------------------------
 
@@ -62,6 +65,12 @@ investments: $(investments.source)
 	pdflatex -interaction=batchmode -output-directory output src/investment_portfolio.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_frontier.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_frontier.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_MVEP.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_MVEP.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_SML.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_SML.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	rm -f output/*.aux output/*.log output/*.out
 	$(TIME-END)
 	@echo
