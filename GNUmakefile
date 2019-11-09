@@ -30,12 +30,14 @@ investments.source = \
 	./src/investment_SML.tex       ./src/tikz_SML.tex  \
 	./src/investment_CML_SML.tex   ./src/tikz_CML_SML.tex  \
 
+international.source = \
+	./src/cip_contract.tex
 # --------------------------------------------------------------------------------------------------------
 
 
 # --------------------------------------------------------------------------------------------------------
 ## ALL TARGET
-all: bubbles options investments
+all: bubbles options investments international
 # --------------------------------------------------------------------------------------------------------
 
 
@@ -72,6 +74,13 @@ investments: $(investments.source)
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	rm -f output/*.aux output/*.log output/*.out
+	$(TIME-END)
+	@echo
+
+international: $(international.source)
+	$(call colorecho,"Compiling International Pictures ...")
+	pdflatex -interaction=batchmode -output-directory output src/cip_contract.tex
+	pdf2svg output/cip_contract.pdf output/cip_contract.svg
 	$(TIME-END)
 	@echo
 

@@ -39,6 +39,7 @@
         <p>List of figures:
            <ol>
             <li><a href="#forward">Payoff of a Forward Contract</a></li>
+            <li><a href="#CIP">Covered Interest Parity Strategy</a></li>
            </ol>
          </p>
       </section>
@@ -88,6 +89,59 @@
   \node[text width=3cm,align=right] at (axis cs:120, 20) [anchor=south east] {\textbf{Long Forward}\\$S_T - F_{0,T}$};
   \node[text width=3cm,align=left] at (axis cs:80, 20) [anchor=south west] {\textbf{Short Forward}\\$F_{0,T} - S_T$};
 \end{axis}
+\end{tikzpicture}
+</code></pre>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="CIP">Covered Interest Parity</h3>
+        <p>Replicating foreign interest rate using exchange rate and a forward:</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="forward" class="margin-toggle"/><span class="marginnote">CIP</span>
+          <img src="../tikz-img/cip_contract.svg" alt="CIP" />
+        </figure>
+
+<pre class="latex"><code>
+% Definition of blocks:
+\tikzset{%
+  block/.style    = {draw, thick, rectangle, minimum height = 3em,
+    minimum width = 3em},
+  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+  input/.style    = {coordinate}, % Input
+  output/.style   = {coordinate}, % Output
+  >={Latex[width=2mm,length=2mm]},
+  % Specifications for style of nodes:
+            base/.style = {rectangle, rounded corners, draw=black,
+                           minimum width=4cm, minimum height=1cm,
+                           text centered, font=\sffamily},
+  activityStarts/.style = {base, fill=blue!30},
+       startstop/.style = {base, fill=red!30},
+    activityRuns/.style = {base, fill=green!30},
+         process/.style = {base, minimum width=2.5cm, fill=orange!15,
+                           font=\ttfamily}
+}
+
+\begin{tikzpicture}[
+  node distance=2cm,
+  every node/.style={fill=white, font=\sffamily},
+  align=center
+  ]
+  % Specification of nodes (position, etc.)
+  \node (start)             [activityStarts]                {US Investor at $t=0$};
+  \node (borrowing0)        [process, above=2.5cm of start]       {US Bank};
+  \node (exchange0)         [process, below=2.5cm of start]       {Exchange Counterparty};  
+  \node (lending01)         [process, right=3.5cm of start]       {Japanese Investor};
+  \node (end)               [activityStarts, right=3.5cm of lending01] {US Investor at $t=1$};
+  \node (borrowing1)        [process, above=2.5cm of end]       {US Bank};
+  \node (exchange1)         [process, below=2.5cm of end]       {Exchange Counterparty};  
+  % Link the nodes
+  \draw[->](borrowing0) -- node[]{Borrowing in USD} (start);
+  \draw[->](start)  -- node[]{Buy Yen at rate $x_0$\\ buy for $\$1$ receive $\text{\textyen}\ 1 / x_0$}(exchange0);
+  \draw[->](start)  -- node[text width = 2.4cm]{Lend $1/x_0$ Yens at $t=0$} (lending01);
+  \draw[->](lending01)  -- node[text width = 2.4cm]{Receive Yens: $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}})$} (end);
+  \draw[->](end)  -- node[]{Repay USD loan at $t=1$ for \\$1+r$} (borrowing1);
+   \draw[->](exchange1)  -- node[]{Exchange the \textyen \ investment in USD\\ $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}}) \cdot F_{0,1}$} (end);
 \end{tikzpicture}
 </code></pre>
 
