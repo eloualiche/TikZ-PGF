@@ -84,6 +84,12 @@ international: $(international.source)
 	$(TIME-END)
 	@echo
 
+current: 
+	$(call colorecho,"Compiling Current Picture ...")
+	pdflatex -interaction=batchmode -output-directory output src/investment_CAL.tex
+	$(TIME-END)
+	@echo
+
 
 # --------------------------------------------------------------------------------------------------------
 ## Generate graph for this task

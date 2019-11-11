@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tikz and Investment</title>
+    <!-- <link rel="stylesheet" href="../css/tufte.css"/> -->
+    <link rel="stylesheet" href="../css/tuftesque.css"/>
+    <link rel="stylesheet" href="../css/latex.css"/>
+    <link rel="stylesheet" href="../css/github-gist-lucy.css" rel="stylesheet" id="theme-stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123382366-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-123382366-1');
+    </script>
+  </head>
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<style>
+  body { background-color: #fffff8; }
+</style>
+
+
+  <body>
+    <article>
+      <h1 id="tufte-css">Using TikZ and PGFPlots for an Investments Class</h1>
+      <!-- <p class="subtitle">Erik Loualiche</p> -->
+
+      <section>
+        <h2 id="investment">Integrating TikZ Pictures in a LaTeX environment</h2>
+        <p>I provide some examples of complete LaTeX code to produce documents that include TikZ figures.</p>
+
+        <p>List of LaTeX documents:
+           <ol>
+            <li><a href="#minimal">Minimal Working Example</a></li>
+            <li><a href="#article">Standard Article</a></li>
+           </ol>
+         </p>
+      </section>
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="minimal">Minimal Working Example</h3>
+        <p>A simple document with the minimal class: view output from pdflatex <a href="../tikz-img/cip_contract_standalone.pdf"> here</a></p>
+
+<pre class="latex">
+  <code>\documentclass{standalone}
+
+% --------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% --------------------------------------------------------
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=newest}
+
+
+
+% --------------------------------------------------------
+\begin{document}
+
+% Definition of blocks:
+\tikzset{%
+  block/.style    = {draw, thick, rectangle, minimum height = 3em,
+    minimum width = 3em},
+  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+  input/.style    = {coordinate}, % Input
+  output/.style   = {coordinate}, % Output
+  >={Latex[width=2mm,length=2mm]},
+  % Specifications for style of nodes:
+            base/.style = {rectangle, rounded corners, draw=black,
+                           minimum width=4cm, minimum height=1cm,
+                           text centered, font=\sffamily},
+  activityStarts/.style = {base, fill=blue!30},
+       startstop/.style = {base, fill=red!30},
+    activityRuns/.style = {base, fill=green!30},
+         process/.style = {base, minimum width=2.5cm, fill=orange!15,
+                           font=\ttfamily}
+}
+
+\begin{tikzpicture}[
+  node distance=2cm,
+  every node/.style={fill=white, font=\sffamily},
+  align=center
+  ]
+  % Specification of nodes (position, etc.)
+  \node (start)             [activityStarts]                {US Investor at $t=0$};
+  \node (borrowing0)        [process, above=2.5cm of start]       {US Bank};
+  \node (exchange0)         [process, below=2.5cm of start]       {Exchange Counterparty};  
+  \node (lending01)         [process, right=3.5cm of start]       {Japanese Investor};
+  \node (end)               [activityStarts, right=3.5cm of lending01] {US Investor at $t=1$};
+  \node (borrowing1)        [process, above=2.5cm of end]       {US Bank};
+  \node (exchange1)         [process, below=2.5cm of end]       {Exchange Counterparty};  
+  % Link the nodes
+ \draw[->](borrowing0) -- node[]{Borrowing in USD} (start);
+ \draw[->](start)  -- node[]{Buy Yen at rate $x_0$\\ buy for $\$1$ receive $\text{\textyen}\ 1 / x_0$}(exchange0);
+ \draw[->](start)  -- node[text width = 2.4cm]{Lend $1/x_0$ Yens at $t=0$} (lending01);
+  \draw[->](lending01)  -- node[text width = 2.4cm]{Receive Yens: $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}})$} (end);
+  \draw[->](end)  -- node[]{Repay USD loan at $t=1$ for \\$1+r$} (borrowing1);
+  \draw[->](exchange1)  -- node[]{Exchange the \textyen \ investment in USD\\ $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}}) \cdot F_{0,1}$} (end);
+\end{tikzpicture}
+
+\end{document}
+</code></pre>
+
+</section>
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="article">Standard Article Class</h3>
+        <p>A document with the article class: view output from pdflatex <a href="../tikz-img/cip_contract_article.pdf"> here</a></p>
+
+<pre class="latex">
+  <code>\documentclass{article}
+
+% --------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% --------------------------------------------------------
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=newest}
+
+% --------------------------------------------------------
+\begin{document}
+
+% Definition of blocks:
+\tikzset{%
+  block/.style    = {draw, thick, rectangle, minimum height = 3em,
+    minimum width = 3em},
+  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+  input/.style    = {coordinate}, % Input
+  output/.style   = {coordinate}, % Output
+  >={Latex[width=2mm,length=2mm]},
+  % Specifications for style of nodes:
+            base/.style = {rectangle, rounded corners, draw=black,
+                           minimum width=4cm, minimum height=1cm,
+                           text centered, font=\sffamily},
+  activityStarts/.style = {base, fill=blue!30},
+       startstop/.style = {base, fill=red!30},
+    activityRuns/.style = {base, fill=green!30},
+         process/.style = {base, minimum width=2.5cm, fill=orange!15,
+                           font=\ttfamily}
+}
+
+\begin{landscape}
+\begin{figure}
+\begin{tikzpicture}[
+  node distance=2cm,
+   every node/.style={fill=white, font=\sffamily},
+   align=center
+  ]
+  % Specification of nodes (position, etc.)
+  \node (start)             [activityStarts]                {US Investor at $t=0$};
+  \node (borrowing0)        [process, above=2.5cm of start]       {US Bank};
+  \node (exchange0)         [process, below=2.5cm of start]       {Exchange Counterparty};  
+  \node (lending01)         [process, right=3.5cm of start]       {Japanese Investor};
+  \node (end)               [activityStarts, right=3.5cm of lending01] {US Investor at $t=1$};
+  \node (borrowing1)        [process, above=2.5cm of end]       {US Bank};
+  \node (exchange1)         [process, below=2.5cm of end]       {Exchange Counterparty};  
+  % Link the nodes
+  \draw[->](borrowing0) -- node[]{Borrowing in USD} (start);
+  \draw[->](start)  -- node[]{Buy Yen at rate $x_0$\\ buy for $\$1$ receive $\text{\textyen}\ 1 / x_0$}(exchange0);
+  \draw[->](start)  -- node[text width = 2.4cm]{Lend $1/x_0$ Yens at $t=0$} (lending01);
+  \draw[->](lending01)  -- node[text width = 2.4cm]{Receive Yens: $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}})$} (end);
+  \draw[->](end)  -- node[]{Repay USD loan at $t=1$ for \\$1+r$} (borrowing1);
+  \draw[->](exchange1)  -- node[]{Exchange the \textyen \ investment in USD\\ $\frac{1}{x_0} \cdot (1+r^{\text{\textyen}}) \cdot F_{0,1}$} (end);
+\end{tikzpicture}
+\end{figure}
+\end{landscape}
+
+\end{document}
+</code></pre>
+
+</section>
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+     <section>
+        <h2 id="epilogue">Links:</h2>
+        <ul>
+        <li>Main TikZ <a href="../tikz.html">page</a>.</li>
+        <li>Back to my academic <a href="https://loualiche.gitlab.io/www/">page</a>.</li>
+
+      </section>
+    </article>
+  </body>
+</html>
