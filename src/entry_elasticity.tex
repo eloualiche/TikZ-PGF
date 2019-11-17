@@ -1,0 +1,42 @@
+\documentclass{standalone}
+
+% --------------------------------------------------------
+% \usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{subcaption, tkz-tab} 
+\usepackage{pgfplots}
+
+%  Colors
+\PassOptionsToPackage{table,usenames,dvipsnames*,svgnames,hyperref}{xcolor}
+\RequirePackage{xcolor}
+% \definecolor{light-gray}{gray}{0.85}
+% \definecolor{lighter-gray}{gray}{0.95}
+\definecolor{dark-gray}{gray}{0.35}
+
+
+% --------------------------------------------------------
+\usetikzlibrary{calc, decorations.pathreplacing}   %allows coordinate calculations.
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows.meta, calc, fit, tikzmark}
+
+% \usepgflibrary{shapes.multipart, decorations.pathreplacing}
+\usepgfplotslibrary{groupplots}
+% \pgfplotsset{compat=1.8}
+% \pgfplotsset{compat=newest}
+\pgfplotsset{compat=1.16}
+
+
+
+
+% --------------------------------------------------------
+\begin{document}
+
+% \begin{tikzpicture}
+	\input{./src/tikz_elasticity}
+% \end{tikzpicture}
+
+
+\end{document}
+% --------------------------------------------------------

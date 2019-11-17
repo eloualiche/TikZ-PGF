@@ -23,6 +23,9 @@ bubbles.source = \
 options.source = \
 	./src/options_forward.tex ./src/tikz_forward.tex
 
+entry.source = \
+	./src/entry_hopenhayn.tex ./src/tikz_hopenhayn.tex	
+
 investments.source = \
 	./src/investment_portfolio.tex ./src/tikz_portfolio.tex \
 	./src/investment_frontier.tex  ./src/tikz_frontier.tex  \
@@ -37,7 +40,7 @@ international.source = \
 
 # --------------------------------------------------------------------------------------------------------
 ## ALL TARGET
-all: bubbles options investments international
+all: bubbles entry options investments international
 # --------------------------------------------------------------------------------------------------------
 
 
@@ -52,6 +55,23 @@ bubbles: $(bubbles.source)
 	rm -f output/*.aux output/*.log output/*.out
 	$(TIME-END)
 	@echo
+
+entry: $(entry.source)
+	$(call colorecho,"Compiling Extensive Margin Pictures ...")
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_hopenhayn.tex
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_hopenhayn.tex
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_hopenhayn_bw.tex
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_hopenhayn_bw.tex
+# 	pdf2svg output/entry_hopenhayn.pdf output/entry_hopenhayn.svg
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_salop.tex
+# 	pdflatex -interaction=batchmode -output-directory output src/entry_salop.tex
+# 	pdf2svg output/entry_salop.pdf output/entry_salop.svg
+	pdflatex -interaction=batchmode -output-directory output src/entry_elasticity.tex
+	pdflatex -interaction=batchmode -output-directory output src/entry_elasticity.tex
+	pdf2svg output/entry_elasticity.pdf output/entry_elasticity.svg
+	$(TIME-END)
+	@echo
+
 
 options: $(options.source)
 	$(call colorecho,"Compiling Options Pictures ...")

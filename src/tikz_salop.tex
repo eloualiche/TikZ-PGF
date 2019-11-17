@@ -1,0 +1,27 @@
+
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+
+\begin{tikzpicture}
+  \begin{scope}[shift={(-7,0)}]
+
+    \foreach \x [count=\p] in {0,...,5} {
+        \node[shape=circle,fill=black, scale=0.5] (\p) at (\x*60:1) {};
+        \node[shape=circle,fill=red, scale=0.5] (\p) at (-30-\x*60:1) {};
+        }; 
+    \draw (1) arc (-30:360:1);
+    
+    \draw [dotted, gray] (-1,0) -- (1,0);
+    \node[] (Mlo) at (0,0.2) {$\overbar{M}_{lo}$};
+
+  \end{scope}
+
+    \foreach \x [count=\p] in {0,...,5} {
+        \node[shape=circle,fill=black, scale=0.5] (\p) at (\x*60:3) {};
+        \node[shape=circle,fill=red, scale=0.5] (\p) at (-30-\x*60:3) {};
+        }; 
+    \draw (1) arc (-30:360:3);
+
+    \draw [dotted, gray] (-3,0) -- (3,0);
+    \node[] (Mhigh) at (0,0.2) {$\overbar{M}_{hi}$};
+\end{tikzpicture}
+
