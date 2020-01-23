@@ -1,0 +1,52 @@
+\begin{axis}[
+	height=12cm, width=16cm,
+	axis x line=bottom, axis y line=left, axis line style={-},
+	ymin=0, ymax=15, xmin=0, xmax=25,
+	xtick={5.5,11},
+	%	xtick style={draw=none},
+	xticklabels={ $\sigma_{FF} = 5.5\%$, $11\%$},
+	extra x ticks={25},
+	extra x tick labels={$\sigma_P$},
+	extra x tick style={
+		major tick length=0mm,
+		grid=none
+	},
+	ytick={3,9,10,11},
+	yticklabels={$3\%$,$9\%$,$10\%$,$11\%$},
+	%	ytick style={draw=none},
+	extra y ticks={15},  extra y tick labels={$ar_i$},
+	extra y tick style={
+		major tick length=0mm,
+		grid=none
+	},
+	scatter/classes={
+		a={mark=*,draw=black, mark size = 2pt},
+		b={mark=*, mark size = 3pt,draw=red, fill = red},
+		c={mark=*, mark size = 3pt,draw=black, fill = black}
+}
+]
+
+
+	\addplot[->,color=black, domain=0:18, line width=1pt]
+	{3 + x * 7/11};
+	
+	\addplot[->,dashed, color=black, domain=0:16, line width=1pt]
+	{3 + x * 8/11};
+	
+	\addplot[scatter,only marks, scatter src=explicit symbolic]
+	coordinates {
+		(5.5,9)         [a]
+		(11,10)         [a]
+		(11,11)         [a]
+	};
+	\node at (axis cs:5.5,9) [anchor=south east] {FF};
+	\node at (axis cs:11,10) [anchor=north west] {M};
+	
+	\node at (axis cs:22, 11.5)  {\textbf{Ex post CML}};
+	
+	\draw[dotted, line width=1pt] (axis cs:5.5,0) -- (axis cs:5.5,9);
+	\draw[dotted, line width=1pt] (axis cs:11,0) -- (axis cs:11,11);
+	\draw[dotted, line width=1pt] (axis cs:0,9) -- (axis cs:5.5,9);
+	\draw[dotted, line width=1pt] (axis cs:0,10) -- (axis cs:11,10);
+	\draw[dotted, line width=1pt] (axis cs:0,11) -- (axis cs:11,11);
+\end{axis}

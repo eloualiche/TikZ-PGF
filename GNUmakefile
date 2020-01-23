@@ -32,6 +32,7 @@ investments.source = \
 	./src/investment_MVEP.tex      ./src/tikz_MVEP.tex  \
 	./src/investment_SML.tex       ./src/tikz_SML.tex  \
 	./src/investment_CML_SML.tex   ./src/tikz_CML_SML.tex  \
+	./src/investment_CML1.tex      ./src/tikz_CML1.tex  \
 
 international.source = \
 	./src/cip_contract.tex
@@ -93,6 +94,7 @@ investments: $(investments.source)
 	pdflatex -interaction=batchmode -output-directory output src/investment_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_CML1.tex
 	rm -f output/*.aux output/*.log output/*.out
 	$(TIME-END)
 	@echo

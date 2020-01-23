@@ -1,4 +1,4 @@
-  \begin{tikzpicture}
+  % \begin{tikzpicture}
     \begin{groupplot}[
       group style={group size=2 by 1, horizontal sep=2cm}, no markers,
       height=7cm, width=10cm,
@@ -20,9 +20,9 @@
     extra x ticks={55}, extra x tick labels={$\sigma$},
     extra x tick style={major tick length=0mm, grid=none},
     xtick={0, 16, 30, 40 },
-    xticklabels={0, $\sigma_M$, $\sigma_{\text{AAPL}}$, $\sigma_{\text{KO}}$ },
+    xticklabels={0, $\sigma_M$, $\sigma_{\textrm{AAPL}}$, $\sigma_{\textrm{KO}}$ },
     ytick={3, 5, 10, 15},
-    yticklabels={$R_f$, $R_{\text{MSFT}}$, $R_M$, $R_{\text{KO}}$}
+    yticklabels={$R_f$, $R_{\textrm{MSFT}}$, $R_M$, $R_{\textrm{KO}}$}
 ]
     \addplot[scatter,only marks, scatter src=explicit symbolic]
         coordinates {
@@ -55,7 +55,7 @@
     xlabel = Market Risk,
     xmin=0, xmax=2,
     xtick={0, 1, 0.2857142857142857, 1.7142857142857142},
-    xticklabels={0 , $\beta^M$, $\beta^{\text{MSFT}}$, $\beta^{\text{KO}}$},
+    xticklabels={0 , $\beta^M$, $\beta^{\textrm{MSFT}}$, $\beta^{\textrm{KO}}$},
     % ytick=\empty
     ]
     \addplot[color=black, domain=-10:3, line width=1pt]{3 + x * 7};
@@ -81,4 +81,4 @@
   \draw[dashed, thick, red] (market1) -- (market2) ;
   \draw[dashed] (ko1) -- (ko2) ;
   \draw[dashed] (ms1) -- (ms2) ;
-\end{tikzpicture}
+% \end{tikzpicture}

@@ -1,0 +1,57 @@
+\begin{axis}[
+height=12cm, width=16cm,
+axis x line=bottom, axis y line=left, axis line style={-},
+ymin=0, ymax=15, xmin=0, xmax=25,
+xtick={5.5,11},
+%	xtick style={draw=none},
+xticklabels={ $\sigma_{FF} = 5.5\%$, $11\%$},
+extra x ticks={25},
+extra x tick labels={$\sigma_P$},
+extra x tick style={
+	major tick length=0mm,
+	grid=none
+},
+ytick={7,9,10},
+yticklabels={$7\%$,$9\%$,$10\%$},
+%	ytick style={draw=none},
+extra y ticks={15},  extra y tick labels={$ar_p$},
+extra y tick style={
+	major tick length=0mm,
+	grid=none
+},
+scatter/classes={
+	a={mark=*,draw=black, mark size = 2pt},
+	b={mark=*, mark size = 3pt,draw=red, fill = red},
+	c={mark=*, mark size = 3pt,draw=black, fill = black}
+}
+]
+
+
+\addplot[->,color=black, domain=0:20, line width=1pt]
+{7 + x * 3/11};
+
+\addplot[dashed, color=black, domain=0:5.5, line width=1pt]
+{7 + x * 4/11};
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+coordinates {
+	(5.5,9)         [a]
+	(11,10)         [a]
+};
+\node at (axis cs:5.5,9) [anchor=south east] {FF};
+\node at (axis cs:11,10) [anchor=south] {M};
+
+\node at (axis cs:22, 11.8)  {\textbf{Ex post CML}};
+\node[align=left] at (20,10) {Asuume that the standard deviations \\ of FF, Mkt, and PF are $5.5\%$, \\ $11\%$, and $20\%$, respectively};
+
+
+\draw[dotted, line width=1pt] (axis cs:5.5,0) -- (axis cs:5.5,9);
+\draw[dotted, line width=1pt] (axis cs:11,0) -- (axis cs:11,10);
+\draw[dotted, line width=1pt] (axis cs:0,9) -- (axis cs:5.5,9);
+\draw[dotted, line width=1pt] (axis cs:0,10) -- (axis cs:11,10);
+
+
+
+
+\end{axis}
+	
