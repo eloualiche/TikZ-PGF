@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tikz for Discussions</title>
+    <link rel="stylesheet" href="../css/tuftesque.css"/>
+    <link rel="stylesheet" href="../css/latex.css"/>
+    <link rel="stylesheet" href="../css/github-gist-lucy.css" rel="stylesheet" id="theme-stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+<!-- Goat counter --> 
+<script>
+  (function() {
+    window.counter = 'https://loulou-tikz.goatcounter.com/count'
+
+    var script = document.createElement('script');
+    script.async = 1;
+    script.src = '//gc.zgo.at/count.js';
+    var ins = document.getElementsByTagName('script')[0];
+    ins.parentNode.insertBefore(script, ins)
+  })();
+</script>
+
+
+<script src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<style>
+  body { background-color: #fffff8; }
+</style>
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+  <body>
+    <article>
+      <h1 id="tufte-css"><code>TikZ</code> and <code>PGFPlots</code> for Discussions.</h1>
+      <!-- <p class="subtitle">Erik Loualiche</p> -->
+
+
+        <p>List of figures:
+           <ol>
+            <li><a href="#prospect-theory">Prospect Theory</a></li>
+            </ol>
+         </p>
+      </section>
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+      <section>
+        <h3 id="#prospect-theory">Prospect Theory</h3>
+        <p>Discussion of <em>Prospect Theory and Stock Markets Anomalies</em> (Barberis, Jin, and Wang)</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Distortion of payoff valuations</span>
+          <img src="../tikz-img/discussion_prospecttheory.svg" alt="Prospect Theory" />
+        </figure>
+
+<pre class="latex"><code>
+\begin{tikzpicture}
+    \begin{groupplot}[
+      group style={group size=2 by 1, horizontal sep=2cm}, no markers,
+      height=5cm, width=7cm,
+      axis x line=bottom, axis y line=left      
+]
+% PLOT 1
+  \nextgroupplot[
+    xlabel = Payoff,
+    ylabel = $v(x)$,
+    xmin=-2, xmax=2,
+    ymin=-4, ymax=3,
+    extra x tick style={major tick length=0mm, grid=none},
+    xtick={-2, 0, 2},
+    xticklabels={-2, 0, 2}, 
+    ytick={-4, 0, 3}    
+  ]
+    \addplot[red, thick,  domain=-2:2, samples=200, variable=\t](
+      {t },
+      { ((t+abs(t))/2)^(0.5) - 2.5 * ((abs(t)-t)/2)^0.5 }
+    );
+    \draw[dotted, color=black] (axis cs:-2,0) -- (axis cs:2,0);
+    \draw[dotted, color=black] (axis cs:0,-4) -- (axis cs:0,3);
+  % PLOT 2
+  \nextgroupplot[
+    xlabel = P,
+    ylabel = $w(P)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1,    
+    xtick={0, 0.5, 1},
+    ytick={0, 0.5, 1}
+  ]
+    \addplot[color=black, dotted, domain=0:1, samples=100, variable=\t ](
+    {t },
+    {t^1 / (t^1 + (1-t)^1)^(1/1) }
+    );
+    \addplot[color=black, dashed, domain=0:1, samples=100, variable=\t](
+    {t },
+    {t^0.65 / (t^0.65 + (1-t)^0.65)^(1/0.65) }
+    );
+   \addplot[color=black, solid, domain=0:1, samples=100, variable=\t](
+    {t },
+    {t^0.4 / (t^0.4 + (1-t)^0.4)^(1/0.4) }
+    );
+  \end{groupplot}
+\end{tikzpicture}
+</code></pre>
+
+</section>
+
+
+
+
+      <section>
+        <h2 id="epilogue">Links:</h2>
+        <ul>
+        <li>Main TikZ <a href="../index.html">page</a>.</li>
+        <li>Back to my academic <a href="https://loualiche.gitlab.io/www/">page</a>.</li>
+
+      </section>
+    </article>
+  </body>
+</html>

@@ -95,6 +95,7 @@ investments: $(investments.source)
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML1.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_CAL.tex
 	rm -f output/*.aux output/*.log output/*.out
 	$(TIME-END)
 	@echo
@@ -108,7 +109,8 @@ international: $(international.source)
 
 current: 
 	$(call colorecho,"Compiling Current Picture ...")
-	pdflatex -interaction=batchmode -output-directory output src/investment_CAL.tex
+	pdflatex -interaction=batchmode -output-directory output src/discussion_prospecttheory.tex
+# 	pdf2svg output/discussion_prospecttheory.pdf output/discussion_prospecttheory.svg
 	$(TIME-END)
 	@echo
 

@@ -1,0 +1,52 @@
+
+\begin{tikzpicture}[scale=3]
+    \begin{groupplot}[
+      group style={group size=2 by 1, horizontal sep=2cm}, no markers,
+      height=7cm, width=10cm,
+      axis x line=bottom, axis y line=left,     
+      xmin=-2, xmax=2, ymin=4, ymax=3
+]
+% PLOT 1
+\nextgroupplot[
+    xlabel = Payoff,
+    ylabel = $v(x)$,
+    xmin=-2, xmax=2,
+    ymin=-4, ymax=3,
+    extra x tick style={major tick length=0mm, grid=none},
+    xtick={-2, 0, 2},
+    xticklabels={-2, 0, 2}, 
+    ytick={-4, 0, 3}    
+]
+    \addplot[red, thick,  domain=-2:2, samples=200, variable=\t](
+      {t },
+      { ((t+abs(t))/2)^(0.5) - 2.5 * ((abs(t)-t)/2)^0.5 }
+    );
+    \draw[dotted, color=black] (axis cs:-2,0) -- (axis cs:2,0);
+    \draw[dotted, color=black] (axis cs:0,-4) -- (axis cs:0,3);
+  % PLOT 2
+  \nextgroupplot[
+    xlabel = P,
+    ylabel = $w(P)$,
+    xmin=0, xmax=1,
+    ymin=0, ymax=1,    
+    xtick={0, 0.5, 1},
+    ytick={0, 0.5, 1}
+  ]
+
+    \addplot[color=black, dotted, domain=0:1, samples=100, variable=\t ](
+    {t },
+    {t^1 / (t^1 + (1-t)^1)^(1/1) }
+    );
+
+    \addplot[color=black, dashed, domain=0:1, samples=100, variable=\t](
+    {t },
+    {t^0.65 / (t^0.65 + (1-t)^0.65)^(1/0.65) }
+    );
+
+   \addplot[color=black, solid, domain=0:1, samples=100, variable=\t](
+    {t },
+    {t^0.4 / (t^0.4 + (1-t)^0.4)^(1/0.4) }
+    );
+
+  \end{groupplot}
+\end{tikzpicture}

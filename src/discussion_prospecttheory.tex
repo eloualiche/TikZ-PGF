@@ -1,0 +1,33 @@
+\documentclass[tikz, convert=pdf2svg]{standalone}
+
+
+% --------------------------------------------------------
+\standaloneconfig{border=-3cm -3cm +5cm +5cm} 
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+
+% --------------------------------------------------------
+% \usetikzlibrary{shapes, arrows, positioning, matrix}
+% \usetikzlibrary{arrows.meta, calc, fit, tikzmark}
+% \usetikzlibrary{patterns, chains, scopes}
+% \usepgflibrary{shapes.multipart, decorations.pathreplacing}
+
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.8}
+% \pgfplotsset{compat=1.16}
+% \pgfplotsset{compat=newest}
+
+
+
+% --------------------------------------------------------
+\begin{document}
+
+\begin{tikzpicture}
+	\input{./src/tikz_prospecttheory}
+	% \input{./tikz_prospecttheory}
+\end{tikzpicture}
+
+
+\end{document}
+% --------------------------------------------------------
