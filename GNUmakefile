@@ -18,7 +18,8 @@
 
 # --------------------------------------------------------------------------------------------------------
 bubbles.source = \
-	./src/bubbles.tex ./src/tikz_bubbles.tex ./src/tikzpeople.sty 
+	./src/bubbles.tex ./src/tikz_bubbles.tex ./src/tikzpeople.sty \
+	./src/innovation1.tex ./src/tikz_innovation1.tex
 
 options.source = \
 	./src/options_forward.tex ./src/tikz_forward.tex
@@ -52,10 +53,23 @@ bubbles: $(bubbles.source)
 	$(call colorecho,"Compiling Bubbles Pictures ...")
 	pdflatex -interaction=batchmode -output-directory output src/bubbles.tex
 	pdflatex -interaction=batchmode -output-directory output src/bubbles.tex
+	pdflatex -interaction=batchmode -output-directory output src/innovation1.tex
+	pdflatex -interaction=batchmode -output-directory output src/innovation1.tex
+	pdflatex -interaction=batchmode -output-directory output src/innovation2.tex
+	pdflatex -interaction=batchmode -output-directory output src/innovation2.tex
 	convert -density 600x600 output/bubbles.pdf -quality 90 -resize 800x600 output/bubbles.png
+	convert -density 600x600 output/innovation1.pdf -quality 90 -resize 800x600 output/innovation1.png
+	convert -density 600x600 output/innovation2.pdf -quality 90 -resize 800x600 output/innovation2.png
 	rm -f output/*.aux output/*.log output/*.out
 	$(TIME-END)
 	@echo
+
+bubbles-svg:
+	pdf2svg output/bubbles.pdf output/bubbles.svg
+	pdf2svg output/innovation1.pdf output/bubbles-innovation1.svg
+	pdf2svg output/innovation2.pdf output/bubbles-innovation2.svg
+	cp output/bubbles.svg output/bubbles-innovation1.svg output/bubbles-innovation2.svg docs/tikz-img
+
 
 entry: $(entry.source)
 	$(call colorecho,"Compiling Extensive Margin Pictures ...")

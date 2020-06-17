@@ -1,0 +1,41 @@
+% \begin{tikzpicture}[scale=1, >=stealth,sloped]
+\tikzset{
+    >=stealth,
+    pil/.style={ ->, thick, shorten <=0.1pt,  shorten >=0.1pt,},
+    dasharrow/.style={ ->, thick, shorten <=1pt,  shorten >=1pt, dashed}, 
+    fontscale/.style = {font=\relsize{#1}},
+    shaded/.style={circle,radius=\r,draw, pattern=north west lines,pattern color=black},
+    households/.style={rectangle, draw, fill=black!10, inner sep=5pt, text width=2.5cm, text badly centered, minimum height=1.cm, 
+    font=\footnotesize},
+    myarrow/.style={->, thick}
+}
+\begin{scope}[color=black, xshift=0cm, yshift=0cm]
+\node[households] (households) at (-7, -1) {Households $j$};
+% Cons market
+\draw[myarrow]  (0.2, 4.0) -- (-3.4, 0.25);
+\node[font = \footnotesize, anchor = south] (consbuy) at (-3.5, 2) {Consume};
+
+% PRODUCING FIRMS
+   % \begin{scope}[color=black]
+    \draw[clip] (3, 5) circle (3cm);
+    \fill[gray!30] (0.5, 5) circle (3cm); 
+    % \end{scope}
+
+    \node (dc15) at (2,   3.6) {\circle*{8.2}};    
+    \node (dc11) at (1.5, 4.1)  {\circle*{8.2}};
+    \node (dc14) at (2.8, 4) {\circle*{9}};
+    \node (dc12) at (2.8,   5.1) {\circle*{8}};
+    \node (dc13) at (2.1, 5.8) {\circle*{10}};
+    \node (dc16) at (2,   6.8) {\circle*{11}};
+
+    \draw [pattern=north west lines,pattern color=black] (4, 3) circle (2.25 mm);
+    \draw [pattern=north west lines,pattern color=black] (5.5, 4) circle (1.5 mm);
+    \draw [pattern=north west lines,pattern color=black] (4.7, 3.85) circle (1.9 mm);    
+    \draw [pattern=north west lines,pattern color=black] (3.3, 6.75) circle (1.7 mm);
+    \draw [pattern=north west lines,pattern color=black] (4,   4) circle (1.2 mm);
+    \draw [pattern=north west lines,pattern color=black] (4, 5.5) circle (2 mm);    
+    \draw [pattern=north west lines,pattern color=black] (5, 6) circle (1 mm);
+    \draw [pattern=north west lines,pattern color=black] (4.95, 6.7) circle (2.05 mm);
+     \node[font=\footnotesize] (consfirms) at ( 3, 1.5)  {\textbf{Firms} $i$};    	
+
+\end{scope}     

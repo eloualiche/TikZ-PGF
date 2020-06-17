@@ -43,7 +43,9 @@
         <p>List of figures:
            <ol>
             <li><a href="#disagreement">Households detail disagreement</a></li>
-            </ol>
+            <li><a href="#innovation">Innovation stage</a></li>
+            <li><a href="#production">Production stage</a></li>
+           </ol>
          </p>
       </section>
 
@@ -124,6 +126,100 @@
 </section>
 
 
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+<p>
+      <section>
+        <h3 id="innovation">Innovation Stage</h3>
+        <p>Creation of blueprints and trading</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Blueprint Creation</span>
+          <img src="../tikz-img/bubbles-innovation1.svg" alt="Blueprint Creation Stage" />
+        </figure>
+<pre class="latex"><code>
+\begin{scope}[color=black]
+  \node[households] (households) at (-7, -1) {Households $j$};
+  \draw[myarrow]  (0.2, 4.0) -- (-3.4, 0.25);
+  \node[households] (creators) at (13, -1) {Firm Creators};
+  \node[align=left, font=\footnotesize] (bs1) at (13, -3) {collects $p_i - p_b$};
+  \draw[myarrow] (-3.4, -2.25) -- (0.2, -6);
+  \node[font = \footnotesize, anchor = south] (firmprod) at (-3.9, -5) {Produce};
+  \node[font = \footnotesize, anchor = south] (firmprod) at (-3.9, -6.25) {effort cost $W(b)$};
+  \draw[myarrow]  (5.8, -6) -- (9.4, -2.25);
+  \node[font = \footnotesize, anchor = south] (firmbuy) at (8.5, -5.5) {Buy};
+  \draw[myarrow]  (9.4 , 0.25) -- (5.8, 4.0);
+  \node[font = \footnotesize, anchor = south] (firmbuy) at (8.5, 2) {Sell};
+  \node[font = \footnotesize, anchor = south] (firmprod) at (-3.7, 2) {Buy shares};
+  \draw[dasharrow] (-3.5, -1) -- (9.5, -1);
+  \node[font = \footnotesize, anchor = south] (firmbuy) at (3, -1) {Own};
+% BLUEPRINTS
+  \draw (3,-7) circle (3cm);
+  \node[font=\footnotesize, anchor=west] (blue) at (0.3,-6.)  {\textbf{Blueprints}};    
+  \node (bp11) at (2,   -7.5) {\circle{4}};
+  \node (bp12) at (1.7, -8) {\circle{4}};
+  \node (bp13) at (2.4, -7.65) {\circle{4}};
+  \node (bp14) at (3,   -9.2) {\circle{4}};
+  \node (bp15) at (1.9, -8.5) {\circle{4}};
+  \node (bp16) at (3,   -9.7) {\circle{4}};
+  \node (bp17) at (3,   -8) {\circle{4}};
+  \node (bp18) at (3.7, -7.2) {\circle{4}};
+  \node (bp19) at (4.4, -8.65) {\circle{4}};
+  \node (bp20) at (5,   -9) {\circle{4}};
+  \node (bp21) at (3.9, -9.5) {\circle{4}};
+  \node (bp22) at (5,   -7.7) {\circle{4}};
+% FIRMS
+  \draw (3, 5) circle (3cm);
+  \node[font=\footnotesize] (consfirms) at ( 3, 6)  {\textbf{Firms} $i$};    
+  \draw (4.5, 4) circle (0.5cm);
+  \node at (4.5, 4) {?};
+  \draw (3, 3.1) circle (0.5cm);
+  \node at (3, 3.1) {?};
+  \draw (1.8, 3.3) circle (0.5cm);
+  \node at (1.8, 3.3) {?};
+  \draw (2.6, 4.5) circle (0.5cm);
+  \node at (2.6, 4.5) {?};
+\end{scope}
+</code></pre>
+</p>
+</section>
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+<p>
+      <section>
+        <h3 id="production">Production Stage</h3>
+        <p>Firms compete and produce; consumers receive proceeds from their investments</p>
+
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-exports-imports" class="margin-toggle"/><span class="marginnote">Production</span>
+          <img src="../tikz-img/bubbles-innovation2.svg" alt="Production Stage" />
+        </figure>
+<pre class="latex"><code>
+\begin{scope}[color=black, xshift=0cm, yshift=0cm]
+    \node[households] (households) at (-7, -1) {Households $j$};
+    \draw[myarrow]  (0.2, 4.0) -- (-3.4, 0.25);
+    \node[font = \footnotesize, anchor = south] (consbuy) at (-3.5, 2) {Consume};
+    \draw[clip] (3, 5) circle (3cm);
+    \fill[gray!30] (0.5, 5) circle (3cm); 
+    \node (dc15) at (2,   3.6) {\circle*{8.2}};    
+    \node (dc11) at (1.5, 4.1)  {\circle*{8.2}};
+    \node (dc14) at (2.8, 4) {\circle*{9}};
+    \node (dc12) at (2.8,   5.1) {\circle*{8}};
+    \node (dc13) at (2.1, 5.8) {\circle*{10}};
+    \node (dc16) at (2,   6.8) {\circle*{11}};
+    \draw [pattern=north west lines,pattern color=black] (4, 3) circle (2.25 mm);
+    \draw [pattern=north west lines,pattern color=black] (5.5, 4) circle (1.5 mm);
+    \draw [pattern=north west lines,pattern color=black] (4.7, 3.85) circle (1.9 mm);    
+    \draw [pattern=north west lines,pattern color=black] (3.3, 6.75) circle (1.7 mm);
+    \draw [pattern=north west lines,pattern color=black] (4,   4) circle (1.2 mm);
+    \draw [pattern=north west lines,pattern color=black] (4, 5.5) circle (2 mm);    
+    \draw [pattern=north west lines,pattern color=black] (5, 6) circle (1 mm);
+    \draw [pattern=north west lines,pattern color=black] (4.95, 6.7) circle (2.05 mm);
+    \node[font=\footnotesize] (consfirms) at ( 3, 1.5)  {\textbf{Firms} $i$};      
+\end{scope}     
+</code></pre>
+</p>
+</section>
 
 
       <section>

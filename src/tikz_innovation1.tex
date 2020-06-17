@@ -1,0 +1,53 @@
+% \begin{tikzpicture}[scale=1, >=stealth,sloped]
+\tikzset{
+    >=stealth,
+    pil/.style={ ->, thick, shorten <=0.1pt,  shorten >=0.1pt,},
+    dasharrow/.style={ ->, thick, shorten <=1pt,  shorten >=1pt, dashed}, 
+    fontscale/.style = {font=\relsize{#1}},
+    shaded/.style={circle,radius=\r,draw, pattern=north west lines,pattern color=black},
+    households/.style={rectangle, draw, fill=black!10, inner sep=5pt, text width=2.5cm, text badly centered, minimum height=1.cm, 
+    font=\footnotesize},
+    myarrow/.style={->, thick}
+}
+\begin{scope}[color=black]
+	\node[households] (households) at (-7, -1) {Households $j$};
+	\draw[myarrow]  (0.2, 4.0) -- (-3.4, 0.25);
+	\node[households] (creators) at (13, -1) {Firm Creators};
+	\node[align=left, font=\footnotesize] (bs1) at (13, -3) {collects $p_i - p_b$};
+	\draw[myarrow] (-3.4, -2.25) -- (0.2, -6);
+	\node[font = \footnotesize, anchor = south] (firmprod) at (-3.9, -5) {Produce};
+	\node[font = \footnotesize, anchor = south] (firmprod) at (-3.9, -6.25) {effort cost $W(b)$};
+	\draw[myarrow]  (5.8, -6) -- (9.4, -2.25);
+	\node[font = \footnotesize, anchor = south] (firmbuy) at (8.5, -5.5) {Buy};
+	\draw[myarrow]  (9.4 , 0.25) -- (5.8, 4.0);
+	\node[font = \footnotesize, anchor = south] (firmbuy) at (8.5, 2) {Sell};
+	\node[font = \footnotesize, anchor = south] (firmprod) at (-3.7, 2) {Buy shares};
+	\draw[dasharrow] (-3.5, -1) -- (9.5, -1);
+	\node[font = \footnotesize, anchor = south] (firmbuy) at (3, -1) {Own};
+% BLUEPRINTS
+	\draw (3,-7) circle (3cm);
+	\node[font=\footnotesize, anchor=west] (blue) at (0.3,-6.)  {\textbf{Blueprints}};    
+	\node (bp11) at (2,   -7.5) {\circle{4}};
+	\node (bp12) at (1.7, -8) {\circle{4}};
+	\node (bp13) at (2.4, -7.65) {\circle{4}};
+	\node (bp14) at (3,   -9.2) {\circle{4}};
+	\node (bp15) at (1.9, -8.5) {\circle{4}};
+	\node (bp16) at (3,   -9.7) {\circle{4}};
+	\node (bp17) at (3,   -8) {\circle{4}};
+	\node (bp18) at (3.7, -7.2) {\circle{4}};
+	\node (bp19) at (4.4, -8.65) {\circle{4}};
+	\node (bp20) at (5,   -9) {\circle{4}};
+	\node (bp21) at (3.9, -9.5) {\circle{4}};
+	\node (bp22) at (5,   -7.7) {\circle{4}};
+% FIRMS
+	\draw (3, 5) circle (3cm);
+	\node[font=\footnotesize] (consfirms) at ( 3, 6)  {\textbf{Firms} $i$};    
+	\draw (4.5, 4) circle (0.5cm);
+	\node at (4.5, 4) {?};
+	\draw (3, 3.1) circle (0.5cm);
+	\node at (3, 3.1) {?};
+	\draw (1.8, 3.3) circle (0.5cm);
+	\node at (1.8, 3.3) {?};
+	\draw (2.6, 4.5) circle (0.5cm);
+	\node at (2.6, 4.5) {?};
+\end{scope}
