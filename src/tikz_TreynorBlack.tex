@@ -1,0 +1,61 @@
+\begin{axis}[
+  height=7cm, width=12cm,
+  axis x line=bottom, axis y line=left,
+  xlabel = Standard Deviation, ylabel = Expected Return,
+  ymin=0, ymax=35, xmin=0, xmax=35,
+  xtick={0, 10, 20, 30},
+  extra x ticks={35}, extra x tick labels={$\sigma$},
+  extra x tick style={major tick length=0mm, grid=none},
+  extra y ticks={3, 35}, extra y tick labels={$r_f$, $\mathbf{E}\{R\}$},
+  extra y tick style={major tick length=0mm, grid=none},
+  enlargelimits=false,
+  scatter/classes={
+    a={mark=o,draw=black, mark size = 3pt},
+    b={mark=*, mark size = 3pt,draw=red, fill = red},
+    c={mark=*, mark size = 3pt,draw=black, fill = black}
+  }
+]
+
+
+\pgfmathsetmacro{\rf}{2}
+\pgfmathsetmacro{\muM}{8}
+\pgfmathsetmacro{\sigM}{9}
+\pgfmathsetmacro{\muA}{20}
+\pgfmathsetmacro{\sigA}{15}
+\pgfmathsetmacro{\rhoAM}{0.1} 
+\pgfmathsetmacro{\sigAM}{\sigA * \sigM * \rhoAM}
+
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (\sigM, \muM+\rf) [c]
+    (\sigA, \muA+\rf) [c]
+  };
+\node at (axis cs:\sigM, \muM+\rf) [anchor=south west] {Market Portfolio};
+\node at (axis cs:\sigA, \muA+\rf) [anchor=north west] {Active Portfolio};
+
+% plot max Sharpe ratio
+\pgfmathsetmacro{\omA}{(\muM*\sigAM - \muA * \sigM^2) / ( (\muA+\muM)*\sigAM - \muA*\sigM^2 - \muM*\sigA^2)}
+\pgfmathsetmacro{\muP}{\omA * \muA + (1-\omA) * \muM}
+\pgfmathsetmacro{\sigP}{(\omA^2 * \sigA^2 + (1-\omA)^2 * \sigM^2 + 2*\omA*(1-\omA)*\sigAM)^(1/2)}
+
+\addplot[scatter,only marks, scatter src=explicit symbolic]
+  coordinates {
+    (\sigP, \muP+2) [b]
+  };
+
+
+\addplot[red, very thick,  domain=-0.75:1.5, samples=200, variable=\t](
+   {(\sigA^2 * t^2 + \sigM^2*(1-t)^2 + 2*t*(1-t)*\sigAM)^(0.5)},
+   {\muA * t + (1-t) * \muM + \rf}
+ );
+
+
+\addplot[black, very thick, domain=0:18, samples=100, variable=\x](
+  ({x}, {2 + \muP/\sigP * x});
+\node[pin={[pin edge={thick}, text width=3cm, pin distance=1.5cm]90:{{\centering maximum Sharpe Ratio portfolio}}}] at (axis cs:\sigP, \muP+3) {};
+
+\node[text centered, text width = 5cm] at (axis cs:20, 10) [anchor=south west] {{Active portfolio weight: \\$\omega_a = \frac{\alpha_A/\sigma_A^2}{\mu_M / \sigma_M^2}$}};
+
+
+\end{axis}

@@ -28,12 +28,13 @@ entry.source = \
 	./src/entry_hopenhayn.tex ./src/tikz_hopenhayn.tex	
 
 investments.source = \
-	./src/investment_portfolio.tex ./src/tikz_portfolio.tex \
-	./src/investment_frontier.tex  ./src/tikz_frontier.tex  \
-	./src/investment_MVEP.tex      ./src/tikz_MVEP.tex  \
-	./src/investment_SML.tex       ./src/tikz_SML.tex  \
-	./src/investment_CML_SML.tex   ./src/tikz_CML_SML.tex  \
-	./src/investment_CML1.tex      ./src/tikz_CML1.tex  \
+	./src/investment_portfolio.tex    ./src/tikz_portfolio.tex \
+	./src/investment_frontier.tex     ./src/tikz_frontier.tex  \
+	./src/investment_MVEP.tex         ./src/tikz_MVEP.tex  \
+	./src/investment_TreynorBlack.tex ./src/tikz_TreynorBlack.tex  \
+	./src/investment_SML.tex          ./src/tikz_SML.tex  \
+	./src/investment_CML_SML.tex      ./src/tikz_CML_SML.tex  \
+	./src/investment_CML1.tex         ./src/tikz_CML1.tex 
 
 international.source = \
 	./src/cip_contract.tex
@@ -104,6 +105,7 @@ investments: $(investments.source)
 	pdflatex -interaction=batchmode -output-directory output src/investment_frontier.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_MVEP.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_MVEP.tex
+	pdflatex -interaction=batchmode -output-directory output src/investment_TreynorBlack.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_SML.tex
 	pdflatex -interaction=batchmode -output-directory output src/investment_CML_SML.tex
@@ -114,6 +116,13 @@ investments: $(investments.source)
 	$(TIME-END)
 	@echo
 
+convert-investments:
+	$(call colorecho,"Converting Investments Pictures to SVG...")
+	pdf2svg output/investment_TreynorBlack.pdf output/investment_TreynorBlack.svg
+	cp output/investment_TreynorBlack.svg docs/tikz-img
+	@echo
+
+
 international: $(international.source)
 	$(call colorecho,"Compiling International Pictures ...")
 	pdflatex -interaction=batchmode -output-directory output src/cip_contract.tex
@@ -123,8 +132,9 @@ international: $(international.source)
 
 current: 
 	$(call colorecho,"Compiling Current Picture ...")
-	pdflatex -interaction=batchmode -output-directory output src/discussion_prospecttheory.tex
-# 	pdf2svg output/discussion_prospecttheory.pdf output/discussion_prospecttheory.svg
+	pdflatex -interaction=batchmode -output-directory output src/investment_TreynorBlack.tex
+	pdf2svg output/investment_TreynorBlack.pdf output/investment_TreynorBlack.svg
+	cp output/investment_TreynorBlack.svg docs/tikz-img
 	$(TIME-END)
 	@echo
 
