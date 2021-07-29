@@ -134,6 +134,7 @@ current:
 	$(call colorecho,"Compiling Current Picture ...")
 	pdflatex -interaction=batchmode -output-directory output src/investment_TreynorBlack.tex
 	pdf2svg output/investment_TreynorBlack.pdf output/investment_TreynorBlack.svg
+	convert -density 600x600 output/investment_TreynorBlack.pdf -quality 90 -resize 800x600 output/investment_TreynorBlack.png
 	cp output/investment_TreynorBlack.svg docs/tikz-img
 	$(TIME-END)
 	@echo

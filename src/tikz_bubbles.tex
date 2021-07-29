@@ -5,55 +5,89 @@
                      text width=4cm, text badly centered, minimum height=1.75cm, 
                      font=\Large\sffamily}
 }
-\begin{scope}[color=black] \draw[clip] (0, 0) circle (5cm); \end{scope}
-\draw [dashed] (0, 0) -- (0, 5);
-\draw [dashed] (0, 0) -- (0, -5);
-\draw [dashed] (0, 0) -- (5, 0);
-\draw [dashed] (0, 0) -- (-5, 0);
-\node[circle, draw=white, fill=white, inner sep=0pt,minimum size=15pt] (dc11) at (1.2, -3.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc12) at (2, -1.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc13) at (4, -2) {};
-\node at (2, 2) {\Large \bfseries $\cdots$};
-\node[circle, draw=white, fill=white, inner sep=0pt,minimum size=15pt] (dc31) at (-1.2, -3.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc32) at (-2, -1.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc33) at (-3.75, -2) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc41) at (-1.2, 3.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc42) at (-2, 1.5) {};
-\node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc43) at (-3.75, 2) {};
-\node[alice, shirt = blue, saturated, minimum size=1.cm] at (-8., -1.) {};
-\node[alice, shirt = red, skin=brown, hair=gray, saturated, minimum size=1.cm] at (-8., 1.) {};
-\node[alice, shirt = gray, skin=brown, saturated, minimum size=1.cm] at (-10., -1.) {};
-\node[bob, saturated, minimum size=1.cm] at (-10., 1.) {};
-\node at (-9, -3) {\Large \bfseries Households};
-\node at (-0.7, -3.5) [red] {\Large   3};
-\node at (-0.4,  -3.5) [blue] {\Large 1};
-\node at (-1.55, -1.5) [red] {\Large  2};
-\node at (-1.25,  -1.5) [blue] {\Large 3};
-\node at (-3.3,  -2) [red] {\Large 1};
-\node at (-3., -2) [blue] {\Large 2};
-\node at (-0.7, 3.5) [red] {\Large   3};
-\node at (-0.4, 3.5) [blue] {\Large  2};
-\node at (-1.55,1.5) [red] {\Large   2};
-\node at (-1.25,1.5) [blue] {\Large  1};
-\node at (-3.3, 2) [red] {\Large  1};
-\node at (-3.,  2) [blue] {\Large  3};
-\node at (1.65, -3.5) [red] {\Large   1};
-\node at (1.95, -3.5) [blue] {\Large  1};
-\node at (2.45,-1.5) [red] {\Large   2};
-\node at (2.75,-1.5) [blue] {\Large  3};
-\node at (3.3,  -2) [red] {\Large  3};
-\node at (3.55, -2) [blue] {\Large  2};
-\draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc33.north);
-\draw[pil, bend right=35, draw=blue]  (-7.5, -1) to   (dc31.west);
-\draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc43.west);
-\draw[pil, bend right=35, draw=blue]  (-7.5, -1) to   (dc42.south);
-\draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc11.north);
-\draw[pil, bend right=40, draw=blue]  (-7.5, -1) to   (dc11.south);
-\node[circle, fill=blue, minimum size=15pt] (dc31blue) at (-1.2, -3.5) {};
-\node[circle, fill=red, minimum size=15pt] (dc33red) at (-3.75, -2) {};
-\node[circle, fill=blue, minimum size=15pt] (dc31blue) at (1.2, -3.5) {};
-\node[circle, fill=red, minimum size=15pt]  (dc33red)   at (1.2, -3.5) {};
-\node[circle, fill=blue, minimum size=15pt] (dc31blue) at (-2, 1.5) {};
-\node[circle, fill=red, minimum size=15pt] (dc33red) at (-3.75, 2) {};
-\node[semicircle, fill=blue, minimum size=7.5pt, rotate=90] (dc42blue)  at (1.1, -3.5) {};
-\node[semicircle, fill=red,  minimum size=7.5pt, rotate=270] at (1.3,-3.5) {};
+
+% =============================================
+% LARGE CIRCLE   
+  \begin{scope}[color=black]
+    \draw[clip] (0, 0) circle (5cm);
+  \end{scope}
+% Split in 4  
+  \draw [dashed] (0, 0) -- (0, 5);
+  \draw [dashed] (0, 0) -- (0, -5);
+  \draw [dashed] (0, 0) -- (5, 0);
+  \draw [dashed] (0, 0) -- (-5, 0);
+
+% =============================================  
+% Circles in each of the separation  1
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc11) at (1.2, -3.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc12) at (2, -1.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc13) at (4, -2) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc13) at (1., -2) {};
+% Circles in each of the separation  2  
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc31) at (-1.2, -3.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc32) at (-2, -1.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc33) at (-3.75, -2) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc13) at (-3., -3) {};
+% Circles in each of the separation  3
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc41) at (-1.2, 3.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc42) at (-2, 1.5) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc43) at (-3.75, 2) {};
+  \node[circle, draw=black, fill=white, inner sep=0pt,minimum size=15pt] (dc13) at (-2.75, +2.75) {};
+% Last circle for all the other groups  
+  \node at (2, 2) {\Huge  \emph{etc.}};
+
+% =============================================  
+% Draw Households
+  \node (investor1) at (-8,-1) {};
+  \node (investor2) at (-8, 1) {};
+  \node[alice, shirt = blue, saturated, minimum size=1.cm] at (-8., -1.) {}; 
+  \node[alice, shirt = red, skin=brown, hair=gray, saturated, minimum size=1.cm] at (-8., 1.) {}; 
+  \node[alice, shirt = gray, skin=brown, saturated, minimum size=1.cm] at (-10., -1.) {}; 
+  \node[bob, saturated, minimum size=1.cm] at (-10., 1.) {}; 
+  \node[businessman, female, shirt = gray, skin=brown,  minimum size=1.cm] at (-12., -1.) {}; 
+  \node[charlie, shirt = gray,  minimum size=1.cm] at (-12., 1.) {}; 
+    
+% =============================================
+% Households Preferences
+  \node at (-0.7, -3.5) [red] {\Large \bfseries  3};
+  \node at (-0.4,  -3.5) [blue] {\Large \bfseries 1};
+  \node at (-1.55, -1.5) [red] {\Large \bfseries  2};
+  \node at (-1.25,  -1.5) [blue] {\Large \bfseries 3};
+  \node at (-3.3,  -2) [red] {\Large \bfseries 1};
+  \node at (-3., -2) [blue] {\Large \bfseries 2};
+  \node at (-2.5, -3)  [red] {\Large  \bfseries 4};
+  \node at (-2.2, -3)  [blue] {\Large  \bfseries 4};
+
+% =============================================
+% All rankings
+  \node at (-0.7, 3.5) [red] {\Large \bfseries  3};
+  \node at (-0.4, 3.5) [blue] {\Large \bfseries 2};
+  \node at (-1.55,1.5) [red] {\Large \bfseries  2};
+  \node at (-1.25,1.5) [blue] {\Large \bfseries 1};
+  \node at (-3.3, 2) [red] {\Large \bfseries 1};
+  \node at (-3.,  2) [blue] {\Large \bfseries 4};
+  \node at (-2.3,  2.75) [red] {\Large \bfseries 4};
+  \node at (-2.0,  2.75) [blue] {\Large \bfseries 3};
+  \node at (1.65, -3.5) [red] {\Large \bfseries  1};
+  \node at (1.95, -3.5) [blue] {\Large \bfseries 1};
+  \node at (2.45,-1.5) [red] {\Large \bfseries  2};
+  \node at (2.75,-1.5) [blue] {\Large \bfseries 3};
+  \node at (3.3,  -2) [red] {\Large \bfseries 3};  
+  \node at (3.55, -2) [blue] {\Large \bfseries 4};
+  \node at (1.8, -2)  [red] {\Large  \bfseries 4};
+  \node at (1.5, -2)  [blue] {\Large  \bfseries 2};
+
+% =============================================
+% Link Investors with their investments
+  \draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc33.north);
+  \draw[pil, bend right=35, draw=blue]  (-7.5, -1) to   (dc31.west);
+  \draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc43.west);
+  \draw[pil, bend right=35, draw=blue]  (-7.5, -1) to   (dc42.south);
+  \draw[pil, bend left=35, draw=red]    (-7.5, 1)  to   (dc11.north);
+  \draw[pil, bend right=40, draw=blue]  (-7.5, -1) to   (dc11.south);
+  \node[circle, fill=blue, minimum size=15pt] (dc31blue) at (-1.2, -3.5) {};
+  \node[circle, fill=red, minimum size=15pt] (dc33red) at (-3.75, -2) {};
+  \node[circle, fill=blue, minimum size=15pt] (dc31blue) at (-2, 1.5) {};
+  \node[circle, fill=red, minimum size=15pt] (dc33red) at (-3.75, 2) {};
+  \node[semicircle, fill=blue, minimum size=7.5pt, rotate=90] (dc42blue)  at (1.1, -3.5) {};
+  \node[semicircle, fill=red,  minimum size=7.5pt, rotate=270] at (1.3,-3.5) {};   
